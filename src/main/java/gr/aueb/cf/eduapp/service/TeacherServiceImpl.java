@@ -231,12 +231,6 @@ public class TeacherServiceImpl implements ITeacherService {
     @PreAuthorize("hasAuthority('VIEW_TEACHER') or (hasAuthority('VIEW_ONLY_TEACHER') and @securityService.isOwnTeacherProfile(#uuid, authentication))")
     @Transactional(readOnly = true)
     public TeacherReadOnlyDTO getTeacherByUUIDDeletedFalse(UUID uuid) throws EntityNotFoundException {
-//        Authentication authentication =
-//                SecurityContextHolder.getContext().getAuthentication();
-//        User principal = (User) authentication.getPrincipal();
-//        System.out.println("PRINCIPAL" + principal.getUuid() + " principal username " + principal.getUsername());
-//        System.out.println("UUID" + uuid + "");
-        //if (!principal.getUuid().equals(uuid)) throw new EntityNotFoundException("Teacher", "Teacher with uuid=" + uuid + " not authorized");
         try {
             Teacher teacher = teacherRepository.findByUuidAndDeletedFalse(uuid)
                     .orElseThrow(() -> new EntityNotFoundException("Teacher","Teacher with uuid=" + uuid + " not found"));

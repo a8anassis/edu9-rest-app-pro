@@ -23,5 +23,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long>,
     Page<Teacher> findAllByDeletedFalse(Pageable pageable);
 
     Optional<Teacher> findByUuidAndDeletedFalse(UUID uuid);
-    Optional<Teacher> findByVatAndDeletedFalse(String vat);
+
+
+    boolean existsByUuidAndUser_Uuid(UUID teacherUuid, UUID userUuid);
 }
