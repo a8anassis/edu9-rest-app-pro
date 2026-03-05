@@ -4,6 +4,7 @@ import gr.aueb.cf.eduapp.core.exceptions.*;
 import gr.aueb.cf.eduapp.core.filters.TeacherFilters;
 import gr.aueb.cf.eduapp.dto.*;
 import gr.aueb.cf.eduapp.service.ITeacherService;
+import gr.aueb.cf.eduapp.validator.TeacherEditValidator;
 import gr.aueb.cf.eduapp.validator.TeacherInsertValidator;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -32,6 +33,7 @@ public class TeacherRestController {
 
     private final ITeacherService teacherService;
     private final TeacherInsertValidator teacherInsertValidator;
+    private final TeacherEditValidator teacherEditValidator;
 
     @Operation(
             summary = "Save a teacher",
@@ -156,8 +158,7 @@ public class TeacherRestController {
             BindingResult bindingResult)
             throws EntityAlreadyExistsException, EntityInvalidArgumentException, ValidationException, EntityNotFoundException {
 
-        //teacherUpdateValidator.validate(teacherUpdateDTO, bindingResult);
-
+        teacherEditValidator.validate(teacherUpdateDTO, bindingResult);
         if (bindingResult.hasErrors()) {
             throw new ValidationException("Teacher", "Invalid teacher data", bindingResult);
         }
